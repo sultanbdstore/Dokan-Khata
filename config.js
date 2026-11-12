@@ -1,0 +1,8 @@
+/* ===== এখানে আপনার তথ্য বসান ===== */
+window.CFG = {
+  devName: 'Sultan',   // ডেভেলপার হিসেবে ছবির নিচে যে নাম দেখাবে
+  devTitle: 'অ্যাপ ডেভেলপার',
+  devPhone: '01784129154',                        // যেমন: 01XXXXXXXXX
+  devWhatsapp: '8801784129154',                     // দেশের কোডসহ, যেমন: 8801XXXXXXXXX
+  scriptUrl: ''                        // Google Apps Script Web App URL (ADMIN_GUIDE.md দেখুন)
+};
