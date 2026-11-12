@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>সেটআপ গাইড | দোকান খাতা</title><style>:root{color-scheme:light dark}body{font:16px/1.7 "Noto Sans Bengali",Kalpurush,system-ui,sans-serif;max-width:720px;margin:0 auto;padding:16px}h1{font-size:24px}h2{margin-top:28px;background:#1c3d6e;color:#fff;padding:8px 12px;border-radius:10px;font-size:19px}code{background:#8883;padding:1px 5px;border-radius:5px;word-break:break-all}pre{background:#0d1420;color:#e6edf6;padding:12px;border-radius:10px;overflow:auto;font-size:13px;line-height:1.45}blockquote{border-left:4px solid #f2a516;margin:10px 0;padding:6px 12px;background:#8881}table{border-collapse:collapse;width:100%}td,th{border:1px solid #8885;padding:6px;vertical-align:top;text-align:left}button{font:inherit;padding:10px 16px;border:0;border-radius:10px;background:#f2a516;font-weight:700;cursor:pointer}li{margin:6px 0}</style></head><body>
+<h1>📘 ইউজার ম্যানেজমেন্ট সেটআপ গাইড (একদম নতুনদের জন্য)</h1>
+<p><b>এটি দিয়ে কী হবে:</b> আপনার বন্ধুরা অ্যাপ চালালে আপনি দেখতে পাবেন কে কে ব্যবহার করছে। দরকারে কাউকে <b>হোল্ড</b> (সাময়িক বন্ধ) করতে পারবেন, আবার <b>চালু</b>ও করতে পারবেন। সব বিনামূল্যে।</p>
+<p><b>যা লাগবে:</b> একটি Gmail অ্যাকাউন্ট, একটি কম্পিউটার (সহজ হয়), আর প্রায় ১৫ মিনিট। কম্পিউটার না থাকলে ফোনের Chrome-এ ⋮ মেনু থেকে <b>Desktop site</b> টিক দিয়ে করা যায়, তবে কিছুটা কঠিন।</p>
+<p><b>হিসাবের ডাটা এখানে আসে না।</b> শুধু প্রতিটি ইউজারের দোকানের নাম, মালিকের নাম, মোবাইল আর কখন অ্যাপ খুলেছে, এটুকু আসে।</p>
+<hr>
+<h2>ধাপ ১: Google Sheet বানান</h2>
+<ol>
+<li>Chrome-এ https://sheets.google.com খুলুন এবং আপনার Gmail দিয়ে ঢুকুন।
+</li>
+<li><b>Blank spreadsheet</b> (খালি ফাইল) চাপুন।
+</li>
+<li>উপরের বাঁদিকে &quot;Untitled spreadsheet&quot; লেখায় চেপে নাম দিন: <code>Dokan Khata Users</code>।
+</li></ol>
+<h2>ধাপ ২: Apps Script খুলুন</h2>
+<ol>
+<li>Sheet-এর উপরের মেনু থেকে <b>Extensions</b> চাপুন, তারপর <b>Apps Script</b>।
+</li>
+<li>নতুন একটি ট্যাব খুলবে। ভেতরে <code>function myFunction() { }</code> লেখা একটি ঘর দেখবেন। এটিই কোডের ঘর।
+</li></ol>
+<h2>ধাপ ৩: কোড বসান</h2>
+<ol>
+<li>কোডের ঘরের ভেতরে ক্লিক করুন। <code>Ctrl + A</code> চেপে সব সিলেক্ট করে <code>Delete</code> চাপুন, ঘর খালি হয়ে যাবে।
+</li>
+<li>zip-এর ভেতরের <code>apps-script/Code.gs</code> ফাইলটি খুলুন (Notepad বা যেকোনো টেক্সট অ্যাপে)। সব কোড কপি করে (<code>Ctrl + A</code>, <code>Ctrl + C</code>) ওই ঘরে পেস্ট করুন (<code>Ctrl + V</code>)। <code>ADMIN_GUIDE.html</code> খুললে কোডের পাশে একটি <b>কপি</b> বোতামও পাবেন।
+</li>
+<li>কোডের ২ নম্বর লাইনে <code>ChangeThisSecret123</code> মুছে নিজের একটি গোপন পাসওয়ার্ড লিখুন। একক উদ্ধৃতি চিহ্ন <code>&#x27; &#x27;</code> বদলাবেন না, শুধু ভেতরের লেখা বদলান।
+<ul>
+<li>ইংরেজি অক্ষর ও সংখ্যা দিন, স্পেস দেবেন না, কমপক্ষে ৮ অক্ষর।</li>
+<li>উদাহরণ: <code>const KEY = &#x27;Sultan@Khata2026&#x27;;</code></li>
+<li>এই পাসওয়ার্ড কাগজে লিখে রাখুন। পরে অ্যাডমিন পাতায় লাগবে। কাউকে বলবেন না।</li>
+</ul></li>
+</li>
+<li>উপরের <b>💾 Save project</b> (সেভ) আইকনে চাপুন, অথবা <code>Ctrl + S</code>।
+</li>
+<li>উপরের বাঁদিকে &quot;Untitled project&quot; লেখায় চেপে নাম দিন <code>DokanKhataServer</code>।
+</li></ol>
+<h2>ধাপ ৪: Deploy (ইন্টারনেটে চালু করা)</h2>
+<ol>
+<li>উপরের ডানদিকে নীল <b>Deploy</b> বোতামে চাপুন, তারপর <b>New deployment</b>।
+</li>
+<li>&quot;Select type&quot; এর পাশের ⚙️ গিয়ার আইকনে চাপুন এবং <b>Web app</b> বাছুন।
+</li>
+<li>নিচের ঘরগুলো এভাবে ভরুন:
+<ul>
+<li>Description: <code>v1</code></li>
+<li>Execute as: <b>Me (আপনার ইমেইল)</b></li>
+<li>Who has access: <b>Anyone</b> (অবশ্যই &quot;Anyone&quot;, অন্য কিছু নয়)</li>
+</ul></li>
+</li>
+<li><b>Deploy</b> চাপুন।
+</li>
+<li>&quot;Authorize access&quot; লেখা আসবে। <b>Authorize access</b> চাপুন, আপনার Gmail বাছুন। &quot;Google hasn&#x27;t verified this app&quot; সতর্কতা এলে ঘাবড়াবেন না, এটি আপনার নিজের বানানো স্ক্রিপ্ট। <b>Advanced</b> চাপুন, তারপর <b>Go to DokanKhataServer (unsafe)</b>, তারপর <b>Allow</b>।
+</li>
+<li>শেষে <b>Web app URL</b> আসবে, দেখতে এমন: <code>https://script.google.com/macros/s/AKfy.../exec</code>। এর পাশের <b>Copy</b> চাপুন এবং কোথাও লিখে রাখুন। হারিয়ে গেলে <b>Deploy → Manage deployments</b> থেকে আবার পাবেন।
+</li></ol>
+<h2>ধাপ ৫: পরীক্ষা করুন (সার্ভার চলছে কি না)</h2>
+<ol>
+<li>কপি করা URL ব্রাউজারের নতুন ট্যাবে খুলুন। দেখাবে: <code>{&quot;ok&quot;:1,&quot;message&quot;:&quot;দোকান খাতা সার্ভার চালু আছে&quot;}</code>। দেখালে সফল।
+</li>
+<li>এবার URL-এর শেষে এই লেখা জুড়ে খুলুন (URL-এর পরেই, স্পেস ছাড়া):
+<br><code>?action=ping&amp;id=test1&amp;shop=Test&amp;owner=Me&amp;phone=017</code>
+<br>দেখাবে: <code>{&quot;status&quot;:&quot;active&quot;,&quot;msg&quot;:&quot;&quot;}</code>।
+</li>
+<li>Google Sheet-এ ফিরে যান। নিচে <b>Users</b> নামে নতুন একটি ট্যাব দেখবেন, তাতে <code>Test</code> নামে একটি সারি। এর মানে সব ঠিক। সারিটির নম্বরে ডান-ক্লিক করে <b>Delete row</b> দিয়ে মুছে দিন।
+</li></ol>
+<h2>ধাপ ৬: অ্যাপে URL বসান</h2>
+<ol>
+<li>GitHub-এ আপনার <code>dokan-khata</code> repo খুলুন এবং <code>config.js</code> ফাইলটিতে চাপুন।
+</li>
+<li>ডানদিকের ✏️ (Edit) আইকনে চাপুন।
+</li>
+<li><code>scriptUrl: &#x27;&#x27;</code> এর দুটি উদ্ধৃতি চিহ্নের মাঝখানে কপি করা URL পেস্ট করুন:
+<br><code>scriptUrl: &#x27;https://script.google.com/macros/s/AKfy.../exec&#x27;</code>
+</li>
+<li>উপরের ডানদিকে সবুজ <b>Commit changes…</b> চাপুন এবং আবার <b>Commit changes</b> চাপুন।
+</li>
+<li>১–২ মিনিট অপেক্ষা করুন।
+</li></ol>
+<h2>ধাপ ৭: নিজে পরীক্ষা করুন</h2>
+<ol>
+<li>অ্যাপের লিংক খুলুন (নতুন ব্রাউজার বা Incognito ট্যাবে, যাতে আপনার আগের ডাটা না আসে)।
+</li>
+<li>স্বাগতম পর্দায় দোকানের নাম ইত্যাদি দিয়ে শুরু করুন।
+</li>
+<li>Google Sheet-এর <b>Users</b> ট্যাবে নতুন একটি সারি এসেছে কি না দেখুন। এলে ইউজার ট্র্যাকিং কাজ করছে।
+</li></ol>
+<h2>ধাপ ৮: অ্যাডমিন পাতা ব্যবহার করুন</h2>
+<ol>
+<li>এই ঠিকানা খুলুন: <code>https://আপনার-ইউজারনেম.github.io/dokan-khata/admin.html</code>
+</li>
+<li>ধাপ ৩-এ দেওয়া পাসওয়ার্ড (KEY) লিখে <b>লোড করুন</b> চাপুন।
+</li>
+<li>প্রতিটি ইউজারের কার্ডে দোকান, নাম, মোবাইল, কবে যোগ দিয়েছে আর শেষ কবে খুলেছে দেখা যাবে।
+</li>
+<li><b>⏸ হোল্ড করুন</b> চাপলে বার্তা লিখতে বলবে। বার্তা দিলে ওই ইউজারের অ্যাপ বন্ধ হয়ে বার্তাটি দেখাবে।
+</li>
+<li><b>▶ চালু করুন</b> চাপলে ইউজার ইন্টারনেটসহ অ্যাপ খুললেই আবার চলবে।
+</li>
+<li>বিকল্প: Google Sheet-এর <b>Status</b> ঘরে সরাসরি <code>hold</code> বা <code>active</code> লিখলেও একই কাজ হয়।
+</li></ol>
+<h2>ধাপ ৯: বন্ধুদের পাঠানোর মেসেজ (হোয়াটসঅ্যাপে কপি করুন)</h2>
+<blockquote>আমার বানানো দোকান খাতা অ্যাপ: https://আপনার-ইউজারনেম.github.io/dokan-khata/</blockquote>
+<blockquote>১. লিংকটি Chrome-এ খুলুন। ২. ⋮ মেনু → <b>Install app</b>। ৩. অ্যাপ খুলে আপনার দোকানের নাম, লোগো ও মোবাইল দিয়ে শুরু করুন। আপনার হিসাব শুধু আপনার ফোনেই থাকবে। সপ্তাহে একবার ⚙️ → ব্যাকআপ নেবেন।</blockquote>
+<hr>
+<h2>সমস্যা হলে</h2>
+<table><tr><th>সমস্যা</th><th>সমাধান</th></tr><tr><td>অ্যাডমিন পাতায় &quot;ভুল পাসওয়ার্ড&quot;</td><td>Code.gs-এর <code>KEY</code> আর পাতায় দেওয়া পাসওয়ার্ড হুবহু মিলতে হবে (বড়-ছোট হাতের অক্ষরও)</td></tr><tr><td>Sheet-এ নতুন ইউজার আসছে না</td><td><code>scriptUrl</code> ঠিক আছে কি দেখুন (শেষে <code>/exec</code> থাকবে)। Deploy-এ &quot;Who has access&quot; <b>Anyone</b> কি না দেখুন। ইউজারের ফোনে ইন্টারনেট আছে কি না দেখুন</td></tr><tr><td>Code.gs বদলানোর পরেও আগের মতো চলছে</td><td><b>Deploy → Manage deployments → ✏️ → Version: New version → Deploy</b> (URL একই থাকবে)</td></tr><tr><td>&quot;Authorization required&quot; লেখা আসছে</td><td>ধাপ ৪-এর ৫ নম্বরের মতো আবার <b>Allow</b> দিন</td></tr><tr><td>হোল্ড করলেও ইউজার অ্যাপ চালাচ্ছে</td><td>ইউজারের ফোনে একবার ইন্টারনেট চালু করে অ্যাপ খুলতে হবে। ইন্টারনেট ছাড়া অ্যাপ শেষ জানা অবস্থায় চলে</td></tr></table>
+<h2>নিরাপত্তা</h2>
+<ul>
+<li>KEY কাউকে দেবেন না। <code>admin.html</code> খোলা থাকলেও KEY ছাড়া ইউজার তালিকা বা হোল্ড করা যায় না।</li>
+<li>repo যদি Public হয়, তবে <code>scriptUrl</code> সবাই দেখতে পাবে। এতে কেউ ইউজার তালিকা দেখতে বা হোল্ড করতে পারবে না, তবে ভুয়া নাম ঢোকানোর চেষ্টা করতে পারে। বন্ধুদের মধ্যে ব্যবহারে এটি সমস্যা নয়।</li>
+<li>প্রযুক্তি জানা কেউ চাইলে ব্রাউজার থেকে এই হোল্ড এড়াতে পারে। বন্ধুদের মধ্যে ব্যবহারের জন্য এটি যথেষ্ট।</li>
+</ul>
+<h2>📋 Code.gs (ধাপ ৩-এর কোড)</h2><p><button onclick="navigator.clipboard.writeText(document.getElementById('c').innerText).then(()=>this.textContent='✅ কপি হয়েছে')">📋 সব কোড কপি করুন</button></p><pre id="c">// দোকান খাতা – ইউজার ম্যানেজমেন্ট (Google Apps Script)
+const KEY = &#x27;ChangeThisSecret123&#x27;;   // &lt;-- এখানে নিজের গোপন পাসওয়ার্ড লিখুন (ইংরেজি অক্ষর/সংখ্যা, স্পেস ছাড়া)
+const SHEET = &#x27;Users&#x27;;
+function sh_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let s = ss.getSheetByName(SHEET);
+  if (!s) { s = ss.insertSheet(SHEET); s.appendRow([&#x27;ID&#x27;,&#x27;Shop&#x27;,&#x27;Owner&#x27;,&#x27;Phone&#x27;,&#x27;Registered&#x27;,&#x27;LastSeen&#x27;,&#x27;Status&#x27;,&#x27;Message&#x27;,&#x27;Version&#x27;]); }
+  return s;
+}
+function out_(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }
+function row_(s, id) { const v = s.getDataRange().getValues(); for (let i = 1; i &lt; v.length; i++) if (String(v[i][0]) === String(id)) return i + 1; return 0; }
+function doGet(e) {
+  const p = e.parameter || {}, a = p.action;
+  if (!a) return out_({ ok: 1, message: &#x27;দোকান খাতা সার্ভার চালু আছে&#x27; });
+  const s = sh_(), now = new Date();
+  const lock = LockService.getScriptLock(); lock.waitLock(10000);
+  try {
+    if (a === &#x27;ping&#x27; &amp;&amp; p.id) {
+      let r = row_(s, p.id);
+      if (!r) { s.appendRow([p.id, p.shop || &#x27;&#x27;, p.owner || &#x27;&#x27;, p.phone || &#x27;&#x27;, now, now, &#x27;active&#x27;, &#x27;&#x27;, p.v || &#x27;&#x27;]); return out_({ status: &#x27;active&#x27;, msg: &#x27;&#x27; }); }
+      s.getRange(r, 2, 1, 3).setValues([[p.shop || &#x27;&#x27;, p.owner || &#x27;&#x27;, p.phone || &#x27;&#x27;]]);
+      s.getRange(r, 6).setValue(now); s.getRange(r, 9).setValue(p.v || &#x27;&#x27;);
+      const v = s.getRange(r, 7, 1, 2).getValues()[0];
+      return out_({ status: v[0] === &#x27;hold&#x27; ? &#x27;hold&#x27; : &#x27;active&#x27;, msg: v[1] || &#x27;&#x27; });
+    }
+    if (p.key !== KEY) return out_({ error: &#x27;unauthorized&#x27; });
+    if (a === &#x27;list&#x27;) {
+      const v = s.getDataRange().getValues().slice(1).map(x =&gt; ({ id: x[0], shop: x[1], owner: x[2], phone: x[3], reg: x[4], seen: x[5], status: x[6], msg: x[7], v: x[8] }));
+      return out_({ users: v });
+    }
+    if (a === &#x27;set&#x27;) { const r = row_(s, p.id); if (!r) return out_({ error: &#x27;not found&#x27; }); s.getRange(r, 7, 1, 2).setValues([[p.status === &#x27;hold&#x27; ? &#x27;hold&#x27; : &#x27;active&#x27;, p.msg || &#x27;&#x27;]]); return out_({ ok: 1 }); }
+    if (a === &#x27;del&#x27;) { const r = row_(s, p.id); if (r) s.deleteRow(r); return out_({ ok: 1 }); }
+    return out_({ error: &#x27;bad request&#x27; });
+  } finally { lock.releaseLock(); }
+}
+</pre></body></html>

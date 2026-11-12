@@ -1,4 +1,4 @@
-/* ===== https://script.google.com/macros/s/AKfycbxPKJv0drY_7VD85Y2XWQArd79wsz7lmppWPDBNx9dlzwHTbIj6_07FPtPb1UdbVHZ3/exec ===== */
+/* ===== এখানে আপনার তথ্য বসান ===== */
 window.CFG = {
   devName: 'Sultan',   // ডেভেলপার হিসেবে ছবির নিচে যে নাম দেখাবে
   devTitle: 'অ্যাপ ডেভেলপার',
