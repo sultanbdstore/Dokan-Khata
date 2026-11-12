@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "দোকান খাতা | Dokan Khata",
+  "short_name": "দোকান খাতা",
+  "description": "দোকানের বাকির খাতা, তাগাদা ও দৈনিক ক্যাশবুক। অফলাইনে চলে।",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eef2f8",
+  "theme_color": "#1c3d6e",
+  "icons": [
+    {"src": "logo.png", "sizes": "192x192 512x512", "type": "image/png", "purpose": "any"},
+    {"src": "logo-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
