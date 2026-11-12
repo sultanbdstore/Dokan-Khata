@@ -1,22 +1,49 @@
-<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="theme-color" content="#1c3d6e">
 <title>অ্যাডমিন | দোকান খাতা</title>
-<style>:root{color-scheme:light dark}body{font:16px/1.45 "Noto Sans Bengali",Kalpurush,system-ui,sans-serif;max-width:640px;margin:0 auto;padding:16px}
-input,button{font:inherit;padding:10px;border-radius:10px;border:1px solid #8886}button{cursor:pointer}.u{border:1px solid #8886;border-radius:12px;padding:12px;margin:10px 0}
-.h{border-color:#c2410c}.b{display:inline-block;padding:2px 10px;border-radius:99px;color:#fff;background:#12805c}.h .b{background:#c2410c}.r{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}small{opacity:.7}</style></head><body>
-<h2>👨‍💻 ব্যবহারকারী তালিকা</h2><p><small>এই পাতার ঠিকানা কাউকে দেবেন না।</small></p>
-<div class="r"><input id="k" type="password" placeholder="অ্যাডমিন পাসওয়ার্ড (KEY)"><button onclick="load()">লোড করুন</button></div><p id="m"></p><div id="l"></div>
+<style>:root{--n:#1c3d6e;--y:#f2a516;--bg:#eef2f8;--c:#fff;--ink:#16202f;--m:#66758a;--l:#d9e1ee;--g:#12805c;--r:#c2410c}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1420;--c:#16212f;--ink:#e6edf6;--m:#93a3b8;--l:#26354a;--g:#34d399;--r:#fb923c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 "Noto Sans Bengali",Kalpurush,system-ui,sans-serif}
+header{background:linear-gradient(160deg,#1c3d6e,#2b5a9a);color:#fff;padding:16px;border-radius:0 0 24px 24px}header h1{margin:0;font-size:20px}
+main{max-width:720px;margin:0 auto;padding:12px}input,select,button{font:inherit;color:inherit}input,select{width:100%;padding:11px;border:1px solid var(--l);border-radius:10px;background:var(--c)}
+button{cursor:pointer;border:0;border-radius:10px;padding:9px 12px;background:var(--l)}.row{display:flex;gap:8px;margin:8px 0}.row>*{flex:1}.row button{flex:none}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}.t{background:var(--c);border:1px solid var(--l);border-radius:12px;padding:8px;text-align:center}.t b{display:block;font-size:22px}.t small{color:var(--m)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}.chips button{white-space:nowrap;border-radius:99px;background:var(--c);border:1px solid var(--l)}.chips .on{background:var(--n);color:#fff}
+.u{display:flex;gap:12px;background:var(--c);border:1px solid var(--l);border-radius:14px;padding:12px;margin:10px 0}.u.h{border-color:var(--r)}
+.av{width:56px;height:56px;border-radius:50%;object-fit:cover;background:var(--n);color:#fff;display:grid;place-items:center;font-size:22px;font-weight:700;flex:none}
+.in{flex:1;min-width:0}.in b{font-size:17px;overflow-wrap:anywhere}.bd{display:inline-block;margin-left:6px;padding:1px 10px;border-radius:99px;color:#fff;background:var(--g);font-size:13px}.h .bd{background:var(--r)}
+small,.m{color:var(--m)}.ok{color:var(--g)}.wn{color:#d97706}.bad{color:var(--r)}.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.acts a{text-decoration:none;color:inherit;background:var(--l);border-radius:10px;padding:9px 12px}
+.hold{background:var(--r);color:#fff}.go{background:var(--g);color:#fff}details{background:var(--c);border:1px solid var(--l);border-radius:12px;padding:10px 12px;margin:14px 0}
+</style></head><body>
+<header><h1>👨‍💻 অ্যাডমিন – ব্যবহারকারী তালিকা</h1><small style="color:#fffb">এই পাতার ঠিকানা কাউকে দেবেন না</small></header>
+<main>
+<div class="row"><input id="k" type="password" placeholder="অ্যাডমিন পাসওয়ার্ড (KEY)"><button onclick="load()" style="background:var(--y);color:#16202f;font-weight:700">🔄 লোড</button></div>
+<p id="m" class="m"></p>
+<div class="tiles" id="ti"></div>
+<input id="q" placeholder="🔍 দোকান, নাম বা মোবাইল দিয়ে খুঁজুন" oninput="draw()">
+<div class="chips" id="ch"></div>
+<div class="row"><select id="so" onchange="draw()"><option value="s">সাজান: সম্প্রতি ব্যবহার আগে</option><option value="o">সাজান: অনেক দিন খোলেনি আগে</option><option value="n">সাজান: নাম অনুযায়ী</option><option value="r">সাজান: নতুন যোগ আগে</option></select></div>
+<div id="l"></div>
+<details><summary><b>❓ কাউকে কীভাবে বন্ধ করবেন?</b></summary><p>১. তালিকায় ইউজারের কার্ড খুঁজে <b>⏸ হোল্ড</b> চাপুন।<br>২. যে বার্তা দেখাতে চান লিখে OK দিন।<br>৩. ইউজার ইন্টারনেটসহ অ্যাপ খুললেই অ্যাপ বন্ধ হয়ে আপনার বার্তা দেখাবে। সে তখনও নিজের ডাটার ব্যাকআপ নিতে পারবে।<br>৪. আবার চালু করতে <b>▶ চালু করুন</b> চাপুন।<br>বিকল্প: Google Sheet-এর <b>Status</b> ঘরে <code>hold</code> বা <code>active</code> লিখুন।</p></details>
+</main>
 <script src="config.js"></script>
 <script>
-const $=s=>document.getElementById(s),U=(window.CFG||{}).scriptUrl;$('k').value=sessionStorage.k||'';
-const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-async function api(p){if(!U){$('m').textContent='config.js এ scriptUrl বসানো হয়নি';throw 0}const r=await fetch(U+'?'+new URLSearchParams({...p,key:$('k').value}));return r.json()}
-const ago=d=>{if(!d)return'-';const n=Math.floor((Date.now()-new Date(d))/864e5);return n<1?'আজ':n+' দিন আগে'};
-async function load(){sessionStorage.k=$('k').value;$('m').textContent='লোড হচ্ছে…';try{const j=await api({action:'list'});if(j.error){$('m').textContent='ভুল পাসওয়ার্ড';return}
- $('m').textContent='মোট ব্যবহারকারী: '+j.users.length+' · চালু: '+j.users.filter(u=>u.status!=='hold').length;
- $('l').innerHTML=j.users.map(u=>`<div class="u ${u.status==='hold'?'h':''}"><b>${esc(u.shop)}</b> <span class="b">${u.status==='hold'?'হোল্ড':'চালু'}</span><br>${esc(u.owner)} · <a href="tel:${esc(u.phone)}">${esc(u.phone)}</a><br><small>যোগ দিয়েছেন: ${(u.reg+'').slice(0,10)} · শেষ ব্যবহার: ${ago(u.seen)} · ভার্সন ${esc(u.v)}</small>${u.msg?`<br><small>বার্তা: ${esc(u.msg)}</small>`:''}
- <div class="r">${u.status==='hold'?`<button onclick="st('${esc(u.id)}','active')">▶ চালু করুন</button>`:`<button onclick="hold('${esc(u.id)}')">⏸ হোল্ড করুন</button>`}<button onclick="del('${esc(u.id)}')">🗑️ মুছুন</button></div></div>`).join('')}catch(e){$('m').textContent='সংযোগ ব্যর্থ'}}
-async function st(id,s,msg){await api({action:'set',id,status:s,msg:msg||''});load()}
-function hold(id){const m=prompt('ইউজারকে যে বার্তা দেখাবেন:','আপনার অ্যাপ সাময়িক বন্ধ আছে। অনুগ্রহ করে যোগাযোগ করুন।');if(m!==null)st(id,'hold',m)}
-async function del(id){if(confirm('তালিকা থেকে মুছবেন? (ইউজারের ফোনের ডাটা মুছবে না)')){await api({action:'del',id});load()}}
-if($('k').value)load();
+const $=s=>document.querySelector(s),U=(window.CFG||{}).scriptUrl;let ALL=[],F='all';$('#k').value=sessionStorage.k||'';
+const bd=x=>String(x).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]),esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const okLogo=s=>/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/.test(s||''),days=d=>d?Math.floor((Date.now()-new Date(d))/864e5):9999,fd=d=>d?new Date(d).toLocaleDateString('bn-BD',{day:'numeric',month:'short',year:'numeric'}):'-';
+async function api(p){if(!U){$('#m').textContent='config.js এ scriptUrl বসানো হয়নি';throw 0}const r=await fetch(U+'?'+new URLSearchParams({...p,key:$('#k').value}));return r.json()}
+async function load(){sessionStorage.k=$('#k').value;$('#m').textContent='লোড হচ্ছে…';try{const j=await api({action:'list'});if(j.error){$('#m').textContent='ভুল পাসওয়ার্ড';return}ALL=j.users||[];$('#m').textContent='';draw()}catch(e){$('#m').textContent='সংযোগ ব্যর্থ। ইন্টারনেট ও scriptUrl দেখুন'}}
+function draw(){const q=$('#q').value.trim().toLowerCase(),so=$('#so').value,hold=u=>u.status==='hold';
+ const C={all:ALL.length,act:ALL.filter(u=>!hold(u)).length,hold:ALL.filter(hold).length,today:ALL.filter(u=>days(u.seen)<1).length,idle:ALL.filter(u=>days(u.seen)>=7).length};
+ $('#ti').innerHTML=[['মোট',C.all],['চালু',C.act],['হোল্ড',C.hold],['৭+ দিন বন্ধ',C.idle]].map(x=>`<div class="t"><b>${bd(x[1])}</b><small>${x[0]}</small></div>`).join('');
+ $('#ch').innerHTML=[['all','সব'],['act','চালু'],['hold','হোল্ড'],['today','আজ খুলেছে'],['idle','৭+ দিন খোলেনি']].map(x=>`<button data-f="${x[0]}" class="${F===x[0]?'on':''}">${x[1]} (${bd(C[x[0]])})</button>`).join('');
+ let L=ALL.filter(u=>(!q||[u.shop,u.owner,u.phone].join(' ').toLowerCase().includes(q))&&(F==='all'||(F==='act'&&!hold(u))||(F==='hold'&&hold(u))||(F==='today'&&days(u.seen)<1)||(F==='idle'&&days(u.seen)>=7)));
+ L.sort(so==='n'?(a,b)=>String(a.shop).localeCompare(String(b.shop),'bn'):so==='o'?(a,b)=>days(b.seen)-days(a.seen):so==='r'?(a,b)=>new Date(b.reg)-new Date(a.reg):(a,b)=>days(a.seen)-days(b.seen));
+ $('#l').innerHTML=L.length?L.map(u=>{const d=days(u.seen),cl=d<=1?'ok':d<7?'wn':'bad',ph=String(u.phone||'').replace(/\D/g,''),wa=ph?(ph[0]==='0'?'88'+ph:ph):'';
+  return`<div class="u ${hold(u)?'h':''}">${okLogo(u.logo)?`<img class="av" src="${u.logo}" alt="">`:`<div class="av">${esc(String(u.shop||'?').trim()[0]||'?')}</div>`}<div class="in"><b>${esc(u.shop)}</b><span class="bd">${hold(u)?'হোল্ড':'চালু'}</span><br>${esc(u.owner)}${ph?' · '+esc(ph):''}<br><small>যোগ দিয়েছেন: ${fd(u.reg)}</small><br><small class="${cl}">শেষ ব্যবহার: ${d>=9999?'-':d<1?'আজ':bd(d)+' দিন আগে'}</small> <small>· ভার্সন ${esc(u.v)}</small>${u.msg&&hold(u)?`<br><small>বার্তা: ${esc(u.msg)}</small>`:''}
+  <div class="acts">${hold(u)?`<button class="go" data-a="on" data-id="${esc(u.id)}">▶ চালু করুন</button>`:`<button class="hold" data-a="hold" data-id="${esc(u.id)}">⏸ হোল্ড</button>`}${ph?`<a href="tel:${esc(ph)}">📞</a><a href="https://wa.me/${esc(wa)}" target="_blank" rel="noopener">💬</a>`:''}<button data-a="del" data-id="${esc(u.id)}">🗑️</button></div></div></div>`}).join(''):'<p class="m" style="text-align:center;padding:24px">কেউ নেই</p>'}
+async function st(id,s,msg){$('#m').textContent='হচ্ছে…';await api({action:'set',id,status:s,msg:msg||''});load()}
+document.addEventListener('click',e=>{const f=e.target.closest('[data-f]');if(f){F=f.dataset.f;draw();return}const b=e.target.closest('[data-a]');if(!b)return;const id=b.dataset.id,a=b.dataset.a;
+ if(a==='hold'){const m=prompt('ইউজারকে যে বার্তা দেখাবেন:','আপনার অ্যাপ সাময়িক বন্ধ আছে। অনুগ্রহ করে যোগাযোগ করুন।');if(m!==null)st(id,'hold',m)}
+ else if(a==='on')st(id,'active');else if(a==='del'&&confirm('তালিকা থেকে মুছবেন? (ইউজারের ফোনের ডাটা মুছবে না)'))api({action:'del',id}).then(load)});
+if($('#k').value)load();
 </script></body></html>
