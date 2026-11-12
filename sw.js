@@ -1,5 +1,5 @@
 /* Offline cache. Change VERSION after editing index.html. */
-const VERSION='dokan-v1';
+const VERSION='dokan-v2';
 const FILES=['./','./index.html','./manifest.webmanifest','./logo.png','./logo-maskable.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(VERSION).then(c=>Promise.all(FILES.map(f=>c.add(f).catch(()=>{})))).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==VERSION).map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
